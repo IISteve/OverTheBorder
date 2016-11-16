@@ -6,7 +6,6 @@ public class PlayerController : MonoBehaviour {
     Rigidbody rb;
     public float speed;
     public float drag;
-    float msSpeed;
 
 	// Use this for initialization
 	void Start () {
@@ -31,10 +30,7 @@ public class PlayerController : MonoBehaviour {
         Vector2 dragVector = new Vector2(drag, drag);
 
         rb.AddForce(movement*speed);
-        //TODO: "drag" implementieren (Objekt wird langsamer)
-        if (msSpeed)
-        {
-            rb.AddForce(dragVector);
-        }
+
+
     }
 }
