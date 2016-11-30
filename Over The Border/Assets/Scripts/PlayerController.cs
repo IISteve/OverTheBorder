@@ -30,13 +30,14 @@ public class PlayerController : MonoBehaviour {
 
     void FixedUpdate()
     {
+        //Bewegung zum Testen
         float moveHorizontal = Input.GetAxisRaw("Horizontal");
         float moveVertical = Input.GetAxisRaw("Vertical");
-
         Vector2 movement = new Vector2(moveHorizontal, moveVertical);
-        Vector2 shootPower = new Vector2(powerSlider.value,0);
+        rb.AddForce(movement * speed);
 
-        rb.AddForce(movement*speed);
+        // "shooting"
+        Vector2 shootPower = new Vector2(powerSlider.value,0);
 
         if (Input.GetKeyUp(KeyCode.Space))
         {
