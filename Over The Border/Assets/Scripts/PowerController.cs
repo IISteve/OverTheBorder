@@ -19,8 +19,16 @@ public class PowerController : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update() {
+    void Update(){
 
+        Shooting();
+
+    }
+
+    
+
+    void Shooting()
+    {
         if (powerSlider.value == 100)
         {
             isfull = true;
@@ -34,15 +42,18 @@ public class PowerController : MonoBehaviour {
 
         if (Input.GetKey(KeyCode.Space))
         {
-            if(isfull == true)
+            if (isfull == true)
             {
                 powerSlider.value -= Mathf.Lerp(0f, 100f, LaunchPower * Time.deltaTime);
             }
-            if(isempty == true)
+            if (isempty == true)
             {
                 powerSlider.value += Mathf.Lerp(0f, 100f, LaunchPower * Time.deltaTime);
             }
         }
-
+        else
+        {
+            powerSlider.value = 0;
+        }
     }
 }
