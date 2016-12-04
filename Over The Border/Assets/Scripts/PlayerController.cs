@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour {
     public Slider powerSlider;
     public float speed = 5;
     public float shootPowerMultiplier = 10;
-    public float xshootPowerMultiplier = 30;
+    public float yshootPowerMultiplier = 30;
     int hittableRaycast;
     float xPower;
 
@@ -20,8 +20,9 @@ public class PlayerController : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
         hittableRaycast = LayerMask.GetMask("HittableRaycast");
         speed = 5;
-        shootPowerMultiplier = 10;
-        xshootPowerMultiplier = 30;
+        shootPowerMultiplier = 20;
+        yshootPowerMultiplier = 88;
+        rb.useGravity = false;
 
 
     }
@@ -44,7 +45,7 @@ public class PlayerController : MonoBehaviour {
         xPower = rb.transform.rotation.x;
 
         // "shooting"
-        Vector2 shootPower = new Vector2(powerSlider.value,Mathf.Abs(xPower) * xshootPowerMultiplier);
+        Vector2 shootPower = new Vector2(powerSlider.value,Mathf.Abs(xPower) * yshootPowerMultiplier);
 
         if (Input.GetKeyUp(KeyCode.Space))
         {
@@ -68,4 +69,11 @@ public class PlayerController : MonoBehaviour {
             rb.MoveRotation(angle);
         }
     }
+
+    void OnTriggerEnter()
+    {
+        rb.useGravity = true;
+    }
+
+
 }
