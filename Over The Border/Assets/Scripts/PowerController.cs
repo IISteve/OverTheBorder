@@ -26,7 +26,7 @@ public class PowerController : MonoBehaviour {
     }
 
     
-
+    // Zum Abschiessen vom Object
     void Shooting()
     {
         if (powerSlider.value == 100)
