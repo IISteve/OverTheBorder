@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour {
     public float yshootPowerMultiplier = 30;
     int hittableRaycast;
     float xPower;
+	Rigidbody JumpC;
 
 
 
@@ -23,7 +24,7 @@ public class PlayerController : MonoBehaviour {
         shootPowerMultiplier = 20;
         yshootPowerMultiplier = 88;
         rb.useGravity = false;
-
+		JumpC = GetComponent<Collider>();
 
     }
 	
@@ -73,7 +74,9 @@ public class PlayerController : MonoBehaviour {
     void OnTriggerEnter()
     {
         rb.useGravity = true;
+		Vector3 JumpPower = new Vector3(50f,100f,0.0f);
+		JumpC.addforce = JumpPower;
     }
 
-
+	void OnTriggerEnter(){
 }
