@@ -6,11 +6,14 @@ public class PlayerController : MonoBehaviour {
 
     Rigidbody rb;
     public Slider powerSlider;
-    public float speed = 5;
+    //float speed = 5;
     public float shootPowerMultiplier = 10;
     public float yshootPowerMultiplier = 30;
     int hittableRaycast;
     float xPower;
+	public Collider JumpC;
+    public Rigidbody Floor;
+    
 
 
 
@@ -19,11 +22,12 @@ public class PlayerController : MonoBehaviour {
 
         rb = GetComponent<Rigidbody>();
         hittableRaycast = LayerMask.GetMask("HittableRaycast");
-        speed = 5;
+        //speed = 5;
         shootPowerMultiplier = 20;
         yshootPowerMultiplier = 88;
         rb.useGravity = false;
-
+        JumpC = GetComponent<Collider>();
+        
 
     }
 	
@@ -31,16 +35,18 @@ public class PlayerController : MonoBehaviour {
 	void Update () {
 
         ShootingAngle();
+        UpdateFloorPos();
         
     }
 
     void FixedUpdate()
     {
-        //Bewegung zum Testen
+        /*Bewegung zum Testen
         float moveHorizontal = Input.GetAxisRaw("Horizontal");
         float moveVertical = Input.GetAxisRaw("Vertical");
         Vector2 movement = new Vector2(moveHorizontal, moveVertical);
         rb.AddForce(movement * speed);
+        */
 
         xPower = rb.transform.rotation.x;
 
@@ -70,10 +76,19 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    void OnTriggerEnter()
+    void UpdateFloorPos()
     {
-        rb.useGravity = true;
+        Vector2 PlayerPos = new Vector2(rb.transform.position.x, 2.37f);
+        Floor.transform.position = PlayerPos;
     }
 
+    void OnTriggerEnter(Collider col)
+    {
+
+        if (col.name == "GravityTriggerPlane")
+        {
+            rb.useGravity = true;
+        }
+    }
 
 }
