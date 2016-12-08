@@ -2,28 +2,34 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BouncObjects : MonoBehaviour {
+public class BounceObjectController : MonoBehaviour
+{
 
     public Rigidbody playerRB;
 
-	// Use this for initialization
-	void Start () {
-        
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    // Use this for initialization
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 
     void Trampolin()
     {
         Vector2 trampolinPower = new Vector2(50, 100);
-        playerRB.AddForce(trampolinPower);
+        playerRB.AddForce(trampolinPower * 10);
     }
 
     void OnTriggerEnter(Collider col)
     {
-        Trampolin();
+        if (col.name == "Player")
+        {
+            Trampolin();
+        }
     }
 }
