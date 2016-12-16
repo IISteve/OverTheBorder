@@ -21,7 +21,7 @@ public class BounceObjectController : MonoBehaviour
 
     void Trampolin()
     {
-        Vector2 trampolinPower = new Vector2(50, 100);
+        Vector2 trampolinPower = new Vector2(20,50);
         playerRB.AddForce(trampolinPower * 10);
     }
 
