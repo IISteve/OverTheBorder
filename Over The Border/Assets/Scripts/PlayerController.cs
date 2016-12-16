@@ -4,7 +4,7 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour {
 
-    Rigidbody rb;
+    public Rigidbody rb;
     public Slider powerSlider;
     float speed = 5;
     public float shootPowerMultiplier = 10;
@@ -23,8 +23,6 @@ public class PlayerController : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
         hittableRaycast = LayerMask.GetMask("HittableRaycast");
         speed = 5;
-        shootPowerMultiplier = 20;
-        yshootPowerMultiplier = 88;
         rb.useGravity = false;
         JumpC = GetComponent<Collider>();
         

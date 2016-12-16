@@ -4,14 +4,14 @@ using System.Collections;
 
 public class PowerController : MonoBehaviour {
 
-    public Slider powerSlider;
+    PlayerController playerController;
     public int LaunchPower;
     bool isfull;
     bool isempty;
 
     // Use this for initialization
     void Start () {
-
+        playerController = FindObjectOfType<PlayerController>();
         LaunchPower = 2;
         isfull = false;
         isempty = true;
@@ -29,12 +29,12 @@ public class PowerController : MonoBehaviour {
     // Zum Abschiessen vom Object
     void Shooting()
     {
-        if (powerSlider.value == 100)
+        if (playerController.powerSlider.value == 100)
         {
             isfull = true;
             isempty = false;
         }
-        if (powerSlider.value == 0)
+        if (playerController.powerSlider.value == 0)
         {
             isfull = false;
             isempty = true;
@@ -44,16 +44,16 @@ public class PowerController : MonoBehaviour {
         {
             if (isfull == true)
             {
-                powerSlider.value -= Mathf.Lerp(0f, 100f, LaunchPower * Time.deltaTime);
+                playerController.powerSlider.value -= Mathf.Lerp(0f, 100f, LaunchPower * Time.deltaTime);
             }
             if (isempty == true)
             {
-                powerSlider.value += Mathf.Lerp(0f, 100f, LaunchPower * Time.deltaTime);
+                playerController.powerSlider.value += Mathf.Lerp(0f, 100f, LaunchPower * Time.deltaTime);
             }
         }
         else
         {
-            powerSlider.value = 0;
+            playerController.powerSlider.value = 0;
         }
     }
 }

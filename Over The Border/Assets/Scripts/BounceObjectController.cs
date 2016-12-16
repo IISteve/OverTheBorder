@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class BounceObjectController : MonoBehaviour
 {
-
-    public Rigidbody playerRB;
+    PlayerController playerController;
 
     // Use this for initialization
     void Start()
     {
-
+        playerController = FindObjectOfType<PlayerController>();
     }
 
     // Update is called once per frame
@@ -19,17 +18,24 @@ public class BounceObjectController : MonoBehaviour
 
     }
 
-    void Trampolin()
+    void Bounce(int x,int y,int multiplier)
     {
-        Vector2 trampolinPower = new Vector2(20,50);
-        playerRB.AddForce(trampolinPower * 10);
+        Vector2 BouncePower = new Vector2(x,y);
+        playerController.rb.AddForce(BouncePower * multiplier);
     }
 
     void OnTriggerEnter(Collider col)
     {
-        if (col.name == "Player")
+        if (col.tag == "Trampolin")
         {
-            Trampolin();
+            Bounce(20,50,10);
+            Destroy(col.gameObject);
+        }
+
+        if(col.tag == "Baloon")
+        {
+            Bounce(10,60,10);
+            Destroy(col.gameObject);
         }
     }
 }
