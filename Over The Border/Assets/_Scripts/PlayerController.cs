@@ -10,12 +10,10 @@ public class PlayerController : MonoBehaviour {
     public float shootPowerMultiplier = 10;
     public float yshootPowerMultiplier = 30;
     int hittableRaycast;
-    float xPower;
 	public Collider JumpC;
     public Rigidbody Floor;
+    bool isShot;
     
-
-
 
     // Use this for initialization
     void Start () {
@@ -25,6 +23,7 @@ public class PlayerController : MonoBehaviour {
         speed = 5;
         rb.useGravity = false;
         JumpC = GetComponent<Collider>();
+        isShot = false;
         
 
     }
@@ -35,6 +34,7 @@ public class PlayerController : MonoBehaviour {
         ShootingAngle();
         UpdateFloorPos();
         
+        
     }
 
     void FixedUpdate()
@@ -44,33 +44,26 @@ public class PlayerController : MonoBehaviour {
         float moveVertical = Input.GetAxisRaw("Vertical");
         Vector2 movement = new Vector2(moveHorizontal, moveVertical);
         rb.AddForce(movement * speed);
-        
 
-        xPower = rb.transform.rotation.x;
-
-        // "shooting"
-        Vector2 shootPower = new Vector2(powerSlider.value,Mathf.Abs(xPower) * yshootPowerMultiplier);
-
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            rb.AddForce(shootPower*shootPowerMultiplier);
-        }
+        Shooting();
 
     }
 
     void ShootingAngle()
     {
+        if (isShot == false){
         Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         RaycastHit BGHit;
-        
-        if (Physics.Raycast(camRay, out BGHit, 30f, hittableRaycast))
-        {
-            Vector2 playerToMouse = BGHit.point - transform.position;
 
-            Quaternion angle = Quaternion.LookRotation(playerToMouse);
+            if (Physics.Raycast(camRay, out BGHit, 30f, hittableRaycast))
+            {
+                Vector2 playerToMouse = BGHit.point - transform.position;
 
-            rb.MoveRotation(angle);
+                Quaternion angle = Quaternion.LookRotation(playerToMouse);
+
+                rb.MoveRotation(angle);
+            }
         }
     }
 
@@ -80,12 +73,24 @@ public class PlayerController : MonoBehaviour {
         Floor.transform.position = PlayerPos;
     }
 
+    void Shooting()
+    {
+
+        Vector2 shootPower = new Vector2(powerSlider.value,Mathf.Abs(rb.rotation.x));
+
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            rb.AddForce(shootPower * shootPowerMultiplier);
+        }
+    }
+
     void OnTriggerEnter(Collider col)
     {
 
         if (col.name == "GravityTriggerPlane")
         {
             rb.useGravity = true;
+            isShot = true;
         }
     }
 
