@@ -76,7 +76,7 @@ public class PlayerController : MonoBehaviour {
     void Shooting()
     {
 
-        Vector2 shootPower = new Vector2(powerSlider.value,Mathf.Abs(rb.rotation.x));
+        Vector2 shootPower = new Vector2(powerSlider.value,Mathf.Abs(rb.rotation.x * powerSlider.value));
 
         if (Input.GetKeyUp(KeyCode.Space))
         {
